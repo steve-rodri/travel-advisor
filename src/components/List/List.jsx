@@ -13,19 +13,7 @@ import PlaceDetails from "../PlaceDetails/PlaceDetails";
 
 import useStyles from "./styles";
 
-const places = [
-  { name: "Cool place" },
-  { name: "Best Beer" },
-  { name: "Best Veggies" },
-  { name: "Cool place" },
-  { name: "Best Beer" },
-  { name: "Best Veggies" },
-  { name: "Cool place" },
-  { name: "Best Beer" },
-  { name: "Best Veggies" },
-];
-
-const List = () => {
+const List = ({ places }) => {
   const classes = useStyles();
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState("All");
