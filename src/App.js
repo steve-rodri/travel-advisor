@@ -5,10 +5,11 @@ import Header from "./components/Header/Header";
 import List from "./components/List/List";
 import Map from "./components/Map/Map";
 
-import { getPlacesData } from "./api";
+import { getPlacesData, getWeatherData } from "./api";
 
 const App = () => {
   const [places, setPlaces] = useState();
+  const [weatherData, setWeatherData] = useState();
   const [filteredPlaces, setFilteredPlaces] = useState();
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [bounds, setBounds] = useState({});
@@ -36,6 +37,11 @@ const App = () => {
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       setIsLoading(true);
+
+      getWeatherData(coordinates.lat, coordinates.lng).then(data =>
+        setWeatherData(data)
+      );
+
       getPlacesData(type, bounds.sw, bounds.ne).then(data => {
         setPlaces(data?.filter(place => place.name && place.num_reviews > 0));
         setFilteredPlaces([]);
@@ -66,6 +72,7 @@ const App = () => {
             setChildClicked={setChildClicked}
             setBounds={setBounds}
             places={filteredPlaces?.length ? filteredPlaces : places}
+            weatherData={weatherData}
           />
         </Grid>
       </Grid>

@@ -12,6 +12,7 @@ const Map = ({
   setCoordinates,
   setChildClicked,
   setBounds,
+  weatherData,
 }) => {
   const classes = useStyles();
   const isMobile = useMediaQuery("(max-width: 600px)");
@@ -60,6 +61,15 @@ const Map = ({
                 <Rating size="small" value={Number(place.rating)} readOnly />
               </Paper>
             )}
+          </div>
+        ))}
+        {weatherData?.list?.map((data, i) => (
+          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+            <img
+              height={100}
+              src={`https://openweathermap.org/img/w/${data.weather[0].icon}.png`}
+              alt="weather"
+            />
           </div>
         ))}
       </GoogleMapReact>
