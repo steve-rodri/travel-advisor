@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CssBaseline, Grid } from "@material-ui/core";
+import { CssBaseline, Box, useMediaQuery } from "@material-ui/core";
 
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
@@ -18,6 +18,8 @@ const App = () => {
 
   const [type, setType] = useState("restaurants");
   const [rating, setRating] = useState(0);
+
+  const isMobile = useMediaQuery("(max-width: 750px)");
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -52,9 +54,14 @@ const App = () => {
   return (
     <>
       <CssBaseline />
-      <Header setCoordinates={setCoordinates} />
-      <Grid container spacing={3} style={{ width: "100%" }}>
-        <Grid item xs={12} md={4}>
+      <Box display="grid" gridTemplateRows="auto 1fr" height="100vh">
+        <Header setCoordinates={setCoordinates} />
+        <Box
+          display="grid"
+          gridAutoFlow={isMobile ? "row" : "column"}
+          gridTemplateColumns={!isMobile && "auto 1fr"}
+          gridTemplateRows={isMobile && "auto 1fr"}
+        >
           <List
             places={filteredPlaces?.length ? filteredPlaces : places}
             childClicked={childClicked}
@@ -64,8 +71,7 @@ const App = () => {
             rating={rating}
             setRating={setRating}
           />
-        </Grid>
-        <Grid item xs={12} md={4}>
+
           <Map
             coordinates={coordinates}
             setCoordinates={setCoordinates}
@@ -74,8 +80,8 @@ const App = () => {
             places={filteredPlaces?.length ? filteredPlaces : places}
             weatherData={weatherData}
           />
-        </Grid>
-      </Grid>
+        </Box>
+      </Box>
     </>
   );
 };

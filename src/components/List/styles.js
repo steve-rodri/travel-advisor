@@ -17,12 +17,12 @@ export default makeStyles(theme => ({
   },
   container: {
     padding: "25px",
+    maxWidth: "400px",
   },
   marginBottom: {
     marginBottom: "30px",
   },
   list: {
-    height: "75vh",
     overflow: "auto",
   },
 }));

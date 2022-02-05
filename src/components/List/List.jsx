@@ -7,6 +7,7 @@ import {
   MenuItem,
   FormControl,
   Select,
+  useMediaQuery,
 } from "@material-ui/core";
 
 import PlaceDetails from "../PlaceDetails/PlaceDetails";
@@ -23,6 +24,7 @@ const List = ({
   setRating,
 }) => {
   const classes = useStyles();
+  const isMobile = useMediaQuery("(max-width: 750px)");
   const [elRefs, setElRefs] = useState([]);
   useEffect(() => {
     setElRefs(prevElRefs => {
@@ -32,7 +34,10 @@ const List = ({
     });
   }, [places]);
   return (
-    <div className={classes.container}>
+    <div
+      className={classes.container}
+      style={{ maxHeight: isMobile ? "75vh" : "100vh" }}
+    >
       <Typography variant="h4">
         Restaurants, Hotels & Attractions around you
       </Typography>
